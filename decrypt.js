@@ -7,11 +7,13 @@ export default async (text, derivedKey) =>
       const uintArray = new Uint8Array(
         [...string].map((char) => char.charCodeAt(0))
       );
+
       const algorithm =
       {
         name: "AES-GCM",
         iv: new TextEncoder().encode("Initialization Vector"),
       };
+
       const decryptedData = await window.crypto.subtle.decrypt(
         algorithm,
         derivedKey,
@@ -20,8 +22,6 @@ export default async (text, derivedKey) =>
 
       return new TextDecoder().decode(decryptedData);
     }
-    catch (error)
-    {
-      return `Error decrypting message: ${error}`;
-    }
+  
+    catch (error) { return `Error decrypting message: ${error}`; }
   };
